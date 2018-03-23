@@ -14,7 +14,7 @@ import {
   Route,
 } from 'react-router-dom';
 import reducers from './reducers';
-import './index.css';
+import './css/index.css';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 

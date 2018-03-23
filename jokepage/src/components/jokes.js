@@ -6,7 +6,7 @@ class Jokes extends Component {
   componentDidMount() {
     this.props.getJokes();
   }
-
+  
   render() {
     return (
       <ul>
