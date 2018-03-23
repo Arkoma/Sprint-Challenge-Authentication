@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getJokes } from '../actions';
 
-class Users extends Component {
+class Jokes extends Component {
   componentDidMount() {
     this.props.getJokes();
   }
