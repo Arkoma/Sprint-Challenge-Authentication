@@ -6,11 +6,27 @@ const SALT_ROUNDS = 11;
 
 const UserSchema = Schema({
   // create your user schema here.
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
   // username: required, unique and lowercase
   // password: required
 });
 
 UserSchema.pre('save', function(next) {
+  bcrypt.hash(this.password, SALT_ROUNDS, (err, hash) => {
+    if (err) return next(err);
+    this.password = hash;
+    next();
+    // Store hash in your password DB.
+  });
   // https://github.com/kelektiv/node.bcrypt.js#usage
   // Fill this middleware in with the Proper password encrypting, bcrypt.hash()
   // if there is an error here you'll need to handle it by calling next(err);
@@ -18,6 +34,10 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.methods.checkPassword = function(plainTextPW, callBack) {
+  bcrypt.compare(plainTextPW, this.password, (err, isMatch) => {
+    if (err) return callBack(err);
+    callBack(null, isMatch);
+  });
   // https://github.com/kelektiv/node.bcrypt.js#usage
   // Fill this method in with the Proper password comparing, bcrypt.compare()
   // Your controller will be responsible for sending the information here for password comparison
