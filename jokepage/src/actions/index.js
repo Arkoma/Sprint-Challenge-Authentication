@@ -43,7 +43,7 @@ export const login = (username, password, history) => {
         dispatch({
           type: USER_AUTHENTICATED
         });
-        history.push('/users');
+        history.push('/jokes');
         localStorage.setItem('token', res.data.token);
       })
       .catch(() => {
