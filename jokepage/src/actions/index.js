@@ -60,10 +60,9 @@ export const logout = () => {
 
 export const getJokes = () => {
   const token = localStorage.getItem('token');
-  console.log('Get jokes token line 79: ', token);
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/api/jokes`, { headers: { authorization: token } })
+      .get(`${ROOT_URL}/api/jokes`, { headers: { Authorization: token } })
       .then(response => {
         dispatch({
           type: GET_JOKES,
